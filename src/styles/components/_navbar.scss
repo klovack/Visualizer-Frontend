@@ -1,8 +1,4 @@
 
 #home-logo {
-  background: url('../../resources/logo-full.svg');
-  background-size: cover;
-  height: 40px;
-  width: 200px;
-  background-repeat: no-repeat;
+  @include image-div(url('../../resources/logo-full.svg'), 40px, 200px);
 }

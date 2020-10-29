@@ -11,7 +11,7 @@ const handleLogin = (loginMethod: LoginMethod) => {
 export const Login: React.FC<LoginProps> = () => {
   return (
     <div className="login-page">
-      <div className="wrapper p-grid p-align-center p-mt-6 vertical-container p-justify-center">
+      <div className="login-page__container wrapper p-grid p-align-center vertical-container p-justify-center">
         <div className="login-page__hero p-col-4">
           <h1 className="login-page__hero-text">
             <span>Visualize Your</span>
