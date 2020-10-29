@@ -1,0 +1,51 @@
+$google-button: #cb4023;
+$facebook-button: #3b5999;
+$github-button: #333;
+
+.login-page {
+  &__hero-text {
+    text-transform: uppercase;
+    color: $primary-blue;
+    line-height: 50px;
+
+    > span {
+      display: block;
+    }
+  }
+
+  &__hero-image {
+    background: url('../../resources/iphone_display.png');
+    min-height: 500px;
+    height: 100%;
+    width: auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &__oauth {
+
+    #btn-oauth {
+      &-google, &-facebook, &-github {
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+
+        &:not(:last-child) {
+          margin-bottom: 24px;
+        }    
+      }
+
+      &-google {
+        background-color: $google-button;
+      }
+
+      &-facebook {
+        background-color: $facebook-button;
+      }
+
+      &-github {
+        background-color: $github-button;
+      }
+    }
+  }
+}

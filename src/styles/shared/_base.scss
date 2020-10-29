@@ -1,3 +1,13 @@
+body {
+  @include bg-gradient-login-img;
+
+  font-family: 'Open Sans', sans-serif;
+}
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 a {
   text-decoration: none;
 

@@ -1,0 +1,7 @@
+@mixin image-div($bg-url, $heigth: 40px, $width: 100%) {
+  background: $bg-url;
+  background-size: contain;
+  height: $heigth;
+  width: $width;
+  background-repeat: no-repeat;
+}
