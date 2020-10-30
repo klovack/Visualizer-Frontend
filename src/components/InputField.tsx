@@ -1,28 +1,82 @@
+import { FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/core';
 import { useField } from 'formik';
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, useState } from 'react'
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string,
   label: string,
-  hideLabel?: boolean,
+  hideLabel?: Boolean,
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
   label,
-  hideLabel = false,
+  size: _,
   type,
-  children,
+  hideLabel,
   ...props
 }) => {
   const [field, {error, touched}] = useField(props);
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
-  const hasErrorOrTouched = error && touched;
+  let inputField;
+  if (type && type === "password") {
+    
+    inputField = (
+      <InputGroup size="md">
+        <Input
+          type={show ? "text" : "password"}
+          variant="outline"
+          {...field}
+          {...props}
+          id={field.name}
+          placeholder={props.placeholder}
+        />
+        <InputRightElement>
+          <IconButton
+            aria-label="Show password or Hide"
+            onClick={handleClick}
+            variant="ghost"
+            icon={show ? "view" : "view-off"} />
+        </InputRightElement>
+      </InputGroup>
+    );
+  } else if (type && type === 'number') {
+    inputField = (
+      <NumberInput
+        defaultValue={field.value}
+      >
+        <NumberInputField
+          type='number'
+          {...field}
+          {...props}
+          id={field.name}
+        />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+      </NumberInput>
+    );
+  } else {
+    inputField = (
+      <Input
+        type={type}
+        {...field}
+        {...props}
+        id={field.name}
+        variant="outline"
+        placeholder={props.placeholder} />
+    );
+  }
+
+  const hasErrorOrTouched = error && touched; 
 
   return (
-    <div className={props.className + ' input-field'}>
-      {!hideLabel && <label htmlFor={field.name} className="p-d-block">{label}</label>}
-      {children}
-      { hasErrorOrTouched && {error}}
-    </div>
+    <FormControl isInvalid={!!error}>
+      {!hideLabel && <FormLabel htmlFor={field.name}>{label}</FormLabel> }
+      {inputField}
+      { hasErrorOrTouched ? <FormErrorMessage>{error}</FormErrorMessage> : null }
+    </FormControl>
   );
 }

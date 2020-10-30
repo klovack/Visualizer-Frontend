@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
 
 import React from 'react'
@@ -27,8 +28,8 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
       <Formik
         initialValues={{
           vendor: '',
-          timeStart: new Date('2010/01/01 05:00'),
-          timeEnd: new Date('2010/01/01 11:59'),
+          timeStart: '2015-01-01T05:00',
+          timeEnd: '2015-01-01T11:59',
           limit: '',
           isUnlimited: false,
         }}
@@ -41,16 +42,13 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
             }
 
             if (values[key]) {
-              url += '&' + key + '=' + values[key] as string;
+              url += '&' + key + '=' + values[key].toString();
             }
           });
           
           const response = await fetch(
              url.toString(), {
               method: 'GET',
-              // headers: {
-              //   'Content-Type': 'application/json'
-              // }
             }
           )
 
@@ -64,20 +62,24 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
           values
         }) => (
             <Form className="filter-form__form">
-              <InputField label="Vendor" name="vendor" hideLabel>
-               
+              <InputField
+                placeholder="Vendor"
+                label="Vendor" 
+                name="vendor" 
+                hideLabel>
               </InputField>
 
-              <InputField label="Time Start" name="timeStart" hideLabel>
+              <InputField
+                type="datetime-local" label="Time Start" name="timeStart" hideLabel>
               </InputField>
 
-              <InputField label="Time End" name="timeEnd" hideLabel>
-
+              <InputField type="datetime-local" label="Time End" name="timeEnd" hideLabel>
               </InputField>
 
-              <InputField className="filter-form__limit" label="Time Start" name="timeStart" hideLabel>
+              <InputField type="number" className="filter-form__limit" label="Limit" name="limit" hideLabel>
               </InputField>
 
+              <Button type="submit" >Refine</Button>
             </Form>
 
           )}
