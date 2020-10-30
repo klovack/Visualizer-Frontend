@@ -5,6 +5,12 @@ $github-button: #333;
 .login-page {
   &__container {
     margin-top: 15vh;
+
+    @include media('<desktop') {
+      align-items: flex-start;
+      margin-top: 60px;
+    }
+    
   }
 
   &__hero-text {
@@ -20,15 +26,23 @@ $github-button: #333;
   &__hero-image {
     @include image-div(url('../../resources/iphone_display.png'), 100%, auto);
     min-height: 500px;
+
+    @include media('<largePhone') {
+      min-height: 350px;
+    }
   }
 
   &__oauth {
+    margin-top: 8%;
 
     #btn-oauth {
       &-google, &-facebook, &-github {
         width: 250px;
         margin-left: auto;
-        margin-right: auto;
+
+        @include media('<tablet') {
+          margin-right: auto;
+        }
 
         &:not(:last-child) {
           margin-bottom: 24px;

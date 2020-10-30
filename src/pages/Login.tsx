@@ -11,8 +11,8 @@ const handleLogin = (loginMethod: LoginMethod) => {
 export const Login: React.FC<LoginProps> = () => {
   return (
     <div className="login-page">
-      <div className="login-page__container wrapper p-grid p-align-center vertical-container p-justify-center">
-        <div className="login-page__hero p-col-4">
+      <div className="login-page__container wrapper p-grid p-align-start vertical-container p-justify-center">
+        <div className="login-page__hero p-col-12 p-lg-4 p-md-6">
           <h1 className="login-page__hero-text">
             <span>Visualize Your</span>
             <span>Important Data</span>
@@ -20,7 +20,7 @@ export const Login: React.FC<LoginProps> = () => {
 
           <div className="login-page__hero-image"></div>
         </div>
-        <div className="login-page__oauth p-p-6 p-col-4 p-d-flex p-flex-column">
+        <div className="login-page__oauth p-col-12 p-lg-4 p-md-6 p-d-flex p-flex-column">
           <Button
             onClick={() => handleLogin(LoginMethod.GOOGLE)}
             icon="pi pi-google"

@@ -1,4 +1,8 @@
 
 #home-logo {
   @include image-div(url('../../resources/logo-full.svg'), 40px, 200px);
+
+  @include media('<largePhone') {
+    @include image-div(url('../../resources/logo.svg'), 40px, 200px);
+  }
 }
