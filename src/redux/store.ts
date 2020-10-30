@@ -1,4 +1,10 @@
+import { combineReducers } from '@reduxjs/toolkit';
 import { createStore } from 'redux';
-import { journeyReducer } from './reducer';
+import { filterReducer, journeyReducer } from './reducer';
 
-export const journeyStore = createStore(journeyReducer);
+const reducer = combineReducers({
+  journeys: journeyReducer,
+  filter: filterReducer,
+});
+
+export default createStore(reducer);
