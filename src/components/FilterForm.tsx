@@ -1,3 +1,4 @@
+import { Formik } from 'formik';
 import React from 'react'
 
 interface FilterFormProps {
@@ -20,6 +21,24 @@ export const FilterForm: React.FC<FilterFormProps> = ({title, subtitle}) => {
           </div>
         )
       }
+
+      <Formik
+        initialValues={{
+          vendor: '',
+          timeStart: '',
+          timeEnd: '',
+          limit: 20,
+          isUnlimited: false,
+        }}
+        onSubmit={() => {}}
+      >
+        {/* Start of the form, and pass an object if form needs it */}
+        {({
+          isSubmitting
+        }) => {
+        }}
+
+      </Formik>
     </>
   );
 }
