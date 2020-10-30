@@ -1,9 +1,22 @@
 .input-field {
   position: relative;
 
+  > * {
+    width: 100%;
+  }
+
   &__error {
     position: absolute;
-    bottom: -110%;
+    bottom: calc(-100% - 10px);
     left: 0;
+    text-align: left;
+
+    &.p-inline-message {
+      justify-content: start;
+    }
   }
+}
+
+.p-calendar.p-inputwrapper {
+  width: 100%;
 }

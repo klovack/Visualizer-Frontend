@@ -1,4 +1,28 @@
-.filter-form__form {
-  background: $accent-color;
-  display: flex;
+.filter-form{
+
+  &__form {
+    background: $accent-color;
+    display: flex;
+    justify-content: stretch;
+    padding: 4px;
+    margin-top: 24px;
+  
+    > * {
+      flex-grow: 1;
+      margin-right: 4px;
+  
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.filter-form__limit {
+        flex-grow: 0;
+      }
+  
+      &.limit-switcher {
+        flex-grow: 0;
+        color: #aaa;
+      }
+    }
+  }
 }
