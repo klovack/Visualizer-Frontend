@@ -15,4 +15,6 @@ $dark-accent-color: #37421a;
 
 @mixin bg-gradient-login-img {
   background: url('../../resources/bg_loginjpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
