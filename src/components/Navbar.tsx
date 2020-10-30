@@ -1,5 +1,7 @@
+import { Button } from '@chakra-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Link as CLink} from '@chakra-ui/core';
 
 interface NavbarProps {
   title?: String
@@ -23,9 +25,11 @@ export const Navbar: React.FC<NavbarProps> = ({title="visualizer"}) => {
         </Link>
 
         <ul className="navbar-nav__end">
-          <a href="mailto:fikriansyah@mrizki.com">
-            Contact
-          </a>
+          <CLink href="mailto:fikriansyah@mrizki.com">
+            <Button 
+              variant="ghost"
+              >Contact</Button> 
+          </CLink>
         </ul>
       </div>
     </div>

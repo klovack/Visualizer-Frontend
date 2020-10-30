@@ -6,3 +6,12 @@
     @include image-div(url('../../resources/logo.svg'), 40px, 200px);
   }
 }
+
+.navbar-nav {
+  display:  flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 60px;
+  align-items: center;
+}
