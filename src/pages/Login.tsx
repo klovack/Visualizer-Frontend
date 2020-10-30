@@ -2,14 +2,21 @@ import { Button, Heading } from '@chakra-ui/core';
 import React from 'react'
 import { LoginMethod } from '../types';
 import { AiFillFacebook, AiFillGithub, AiFillGoogleSquare } from 'react-icons/ai';
+import { useHistory } from 'react-router-dom';
 
 interface LoginProps { }
 
-const handleLogin = (loginMethod: LoginMethod) => {
-  alert(`Login via ${loginMethod}`);
-}
 
 export const Login: React.FC<LoginProps> = () => {
+  
+  let history = useHistory();
+  const handleLogin = (loginMethod: LoginMethod) => {
+    alert(`Login via ${loginMethod} temporary function`);
+
+    // Simulate success
+    history.push('/dashboard');
+  }
+  
   return (
     <div className="login-page">
       <div className="login-page__container wrapper">
