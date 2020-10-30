@@ -1,0 +1,9 @@
+.input-field {
+  position: relative;
+
+  &__error {
+    position: absolute;
+    bottom: -110%;
+    left: 0;
+  }
+}
