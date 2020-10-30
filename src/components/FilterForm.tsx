@@ -2,7 +2,10 @@ import { Button } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
 
 import React from 'react'
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { Filter } from '../models/filter';
 import { InputField } from './InputField';
+import { setFilter, clearFilter } from '../redux/actions';
 
 interface FilterFormProps {
   title?: String,
@@ -13,6 +16,9 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
   const titleJSX = title ? <h3>{title}</h3> : null;
   const subtitleJSX = subtitle ? <p>{subtitle}</p> : null;
   const shouldRenderTitle = title && subtitle;
+
+  const filter: Filter = useSelector(state => state['filter']);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -27,13 +33,14 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
 
       <Formik
         initialValues={{
-          vendor: '',
-          timeStart: '2015-01-01T05:00',
-          timeEnd: '2015-01-01T11:59',
-          limit: '',
-          isUnlimited: false,
-        }}
+          vendor: filter.vendors,
+          timeStart: filter.timeStart ? filter.timeStart : '2015-01-01T05:00',
+          timeEnd: filter.timeEnd ? filter.timeEnd : '2015-01-01T11:59',
+          limit: filter.limit,
+          isUnlimited: filter.isUnlimited,
+        } as Filter}
         onSubmit={async (values, { setErrors }) => {
+          dispatch(setFilter(values))
 
           let url = 'http://localhost:5000/api/statistics'
           Object.keys(values).forEach((key, i) => {
@@ -76,8 +83,14 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
               <InputField type="datetime-local" label="Time End" name="timeEnd" hideLabel>
               </InputField>
 
-              <InputField type="number" className="filter-form__limit" label="Limit" name="limit" hideLabel>
+              <InputField type="number" placeholder="Limit" className="filter-form__limit" label="Limit" name="limit" hideLabel>
               </InputField>
+
+              {/* In case i want to show the toggle */}
+              {/* <Flex justify="center" align="center">
+                <FormLabel htmlFor="isUnlimited">Unlimited</FormLabel>
+                <Switch id="isUnlimited" name="isUnlimited" />
+              </Flex> */}
 
               <Button type="submit" >Refine</Button>
             </Form>
@@ -87,3 +100,20 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
     </>
   );
 }
+
+
+// If using connect
+const mapStateToProps = (state, ownProps) => ({
+  ownProps,
+  filter: state.filter,
+});
+
+const mapDispatchToProps = {
+  setFilter,
+  clearFilter,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilterForm);

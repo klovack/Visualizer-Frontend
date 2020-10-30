@@ -5,7 +5,7 @@ import { filterReducer, journeyReducer, vendorReducer } from './reducer';
 const reducer = combineReducers({
   journeys: journeyReducer,
   filter: filterReducer,
-  vendor: vendorReducer,
+  vendors: vendorReducer,
 });
 
 export default createStore(reducer);

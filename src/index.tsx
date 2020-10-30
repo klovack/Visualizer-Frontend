@@ -1,7 +1,10 @@
 import { ColorModeProvider, CSSReset, DefaultTheme, theme, ThemeProvider } from '@chakra-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
 import App from './App';
+import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
 import './styles/styles.scss';
@@ -14,15 +17,19 @@ const visualizerTheme: DefaultTheme = {
   },
 }
 
+
 ReactDOM.render(
   <ThemeProvider theme={visualizerTheme}>
     <CSSReset />
     <ColorModeProvider>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ColorModeProvider>
   </ThemeProvider>,
   document.getElementById('root')
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

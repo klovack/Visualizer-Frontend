@@ -1,4 +1,4 @@
-import { FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/core';
+import { FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, NumberInput, NumberInputField } from '@chakra-ui/core';
 import { useField } from 'formik';
 import React, { InputHTMLAttributes, useState } from 'react'
 
@@ -52,10 +52,6 @@ export const InputField: React.FC<InputFieldProps> = ({
           {...props}
           id={field.name}
         />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
       </NumberInput>
     );
   } else {
@@ -73,7 +69,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   const hasErrorOrTouched = error && touched; 
 
   return (
-    <FormControl isInvalid={!!error}>
+    <FormControl className={props.className} isInvalid={!!error}>
       {!hideLabel && <FormLabel htmlFor={field.name}>{label}</FormLabel> }
       {inputField}
       { hasErrorOrTouched ? <FormErrorMessage>{error}</FormErrorMessage> : null }
