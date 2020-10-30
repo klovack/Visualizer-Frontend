@@ -5,7 +5,7 @@ export interface LatLng {
 
 export interface IJourney {
   id: number,
-  vendor_id: number,
+  vendorId: number,
   passengerCount: number,
   distance?: number,
   pickupLocation?: LatLng,
@@ -15,10 +15,24 @@ export interface IJourney {
   fare_amount?: number,
 }
 
+export interface IResponseJourney {
+  id?: number,
+  vendor_id?: number,
+  passenger_count?: number,
+  distance?: number,
+  pickup_latitude?: number,
+  pickup_longitude?: number,
+  dropoff_latitude?: number,
+  dropoff_longitude?: number,
+  pickup_time?: string,
+  dropoff_time?: string,
+  total_fare_amount: number,
+}
+
 export class Journey {
   constructor(
     public id: number,
-    public vendor_id: number,
+    public vendorId: number,
     public passengerCount: number,
     public distance?: number,
     public pickupLocation?: LatLng,
@@ -27,4 +41,24 @@ export class Journey {
     public dropoffTime?: Date,
     public fare_amount?: number,
   ){}
+
+  static fromResponse(element: IResponseJourney) {
+    return new Journey(
+      element.id,
+      element.vendor_id,
+      element.passenger_count,
+      element.distance,
+      {
+        lat: element.pickup_latitude,
+        lng: element.pickup_longitude,
+      },
+      {
+        lat: element.dropoff_latitude,
+        lng: element.dropoff_longitude,
+      },
+      new Date(element.pickup_time),
+      new Date(element.dropoff_time),
+      element.total_fare_amount,
+    );
+  }
 }

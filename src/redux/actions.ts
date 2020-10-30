@@ -75,7 +75,7 @@ export const addJourney = (...values: IJourney[]) => {
   values.forEach(value => {
     journeys.push (new Journey(
       value.id, 
-      value.vendor_id, 
+      value.vendorId, 
       value.passengerCount,
       value.distance,
       value.pickupLocation,

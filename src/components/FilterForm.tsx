@@ -1,11 +1,12 @@
-import { Button } from '@chakra-ui/core';
+import { Alert, AlertIcon, Button } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
 
-import React from 'react'
+import React, { useState } from 'react'
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { Filter } from '../models/filter';
 import { InputField } from './InputField';
-import { setFilter, clearFilter } from '../redux/actions';
+import { setFilter, clearFilter, addJourney, clearJourney } from '../redux/actions';
+import { IResponseJourney, Journey } from '../models/journey';
 
 interface FilterFormProps {
   title?: String,
@@ -17,6 +18,7 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
   const subtitleJSX = subtitle ? <p>{subtitle}</p> : null;
   const shouldRenderTitle = title && subtitle;
 
+  const [errors, setFunctionError] = useState([] as Error[]);
   const filter: Filter = useSelector(state => state['filter']);
   const dispatch = useDispatch();
 
@@ -40,6 +42,7 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
           isUnlimited: filter.isUnlimited,
         } as Filter}
         onSubmit={async (values, { setErrors }) => {
+          setFunctionError([]);
           dispatch(setFilter(values))
 
           let url = 'http://localhost:5000/api/statistics'
@@ -53,20 +56,37 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
             }
           });
           
-          const response = await fetch(
-             url.toString(), {
-              method: 'GET',
-            }
-          )
-
-          console.log(response);
+          try {
+            const response = await fetch(
+               url.toString(), {
+                method: 'GET',
+              }
+            )
+  
+            dispatch(clearJourney());
+            response.json().then((res) => {
+              if (res.journeys) {
+                const journeys: Journey[] = []
+                res.journeys.forEach((element: IResponseJourney) => {
+                  journeys.push(Journey.fromResponse(element));
+                });
+  
+                dispatch(addJourney(...journeys));
+              }
+            });
+          } catch (error) {
+            console.log(error);
+            setFunctionError([
+              new Error('Internal server Error: ' + error.toString())
+            ]);
+          }
         }}
       >
         {/* Start of the form, and pass an object if form needs it */}
         {({
           isSubmitting,
           handleChange,
-          values
+          values,
         }) => (
             <Form className="filter-form__form">
               <InputField
@@ -92,11 +112,21 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
                 <Switch id="isUnlimited" name="isUnlimited" />
               </Flex> */}
 
-              <Button type="submit" >Refine</Button>
+              <Button type="submit" isLoading={isSubmitting} loadingText="Filtering" >Refine</Button>
             </Form>
 
           )}
       </Formik>
+
+      {errors.length > 0 && (
+        <Alert className="filter-form__error" status="error">
+          <AlertIcon />
+          {errors.map((err: Error, i) => (
+            <p key={'error' + i}>{err.message}</p>
+          ))}
+        </Alert>
+      )}
+
     </>
   );
 }
