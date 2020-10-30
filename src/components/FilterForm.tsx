@@ -1,9 +1,4 @@
 import { Form, Formik } from 'formik';
-import { Button } from 'primereact/button';
-import { Calendar } from 'primereact/calendar';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import { InputSwitch } from 'primereact/inputswitch';
 
 import React from 'react'
 import { InputField } from './InputField';
@@ -32,13 +27,34 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
       <Formik
         initialValues={{
           vendor: '',
-          timeStart: '',
-          timeEnd: '',
+          timeStart: new Date('2010/01/01 05:00'),
+          timeEnd: new Date('2010/01/01 11:59'),
           limit: '',
           isUnlimited: false,
         }}
-        onSubmit={(values, { setErrors }) => {
-          console.log(values);
+        onSubmit={async (values, { setErrors }) => {
+
+          let url = 'http://localhost:5000/api/statistics'
+          Object.keys(values).forEach((key, i) => {
+            if (i === 0) {
+              url += '?';
+            }
+
+            if (values[key]) {
+              url += '&' + key + '=' + values[key] as string;
+            }
+          });
+          
+          const response = await fetch(
+             url.toString(), {
+              method: 'GET',
+              // headers: {
+              //   'Content-Type': 'application/json'
+              // }
+            }
+          )
+
+          console.log(response);
         }}
       >
         {/* Start of the form, and pass an object if form needs it */}
@@ -48,54 +64,20 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
           values
         }) => (
             <Form className="filter-form__form">
-              <InputField className="p-input-icon-left" label="Vendor" name="vendor" hideLabel>
-                <i className="pi pi-user"></i>
-                <InputText
-                  name="vendor"
-                  placeholder="Vendor"
-                />
+              <InputField label="Vendor" name="vendor" hideLabel>
+               
               </InputField>
 
-              <InputField className="p-input-icon-left" label="Time Start" name="timeStart" hideLabel>
-              <i className="pi pi-calendar"></i>
-                <Calendar
-                  icon="pi pi-calendar-minus"
-                  showIcon
-                  name="timeStart"
-                  placeholder="2020-01-02 05:42"
-                  showTime
-                  showSeconds
-                />
+              <InputField label="Time Start" name="timeStart" hideLabel>
               </InputField>
 
-              <InputField label="Time Start" name="timeEnd" hideLabel>
-                <Calendar
-                  icon="pi pi-calendar-plus"
-                  showIcon
-                  name="timeStart"
-                  placeholder="2020-01-02 05:42"
-                  showTime
-                  showSeconds
-                />
+              <InputField label="Time End" name="timeEnd" hideLabel>
+
               </InputField>
 
               <InputField className="filter-form__limit" label="Time Start" name="timeStart" hideLabel>
-                <InputNumber
-                  name="limit"
-                  placeholder="20"
-                />
               </InputField>
 
-              <div className="p-d-flex p-ai-center limit-switcher">
-                <label htmlFor="isUnlimited" className="p-pr-2">Unlimited</label>
-                <InputSwitch
-                  checked={values.isUnlimited}
-                  id="isUnlimited"
-                  onChange={handleChange}
-                />
-              </div>
-
-              <Button type="submit" label="Refine" />
             </Form>
 
           )}

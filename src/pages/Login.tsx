@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'primereact/button';
 import { LoginMethod } from '../types';
 
 interface LoginProps { }
@@ -11,8 +10,8 @@ const handleLogin = (loginMethod: LoginMethod) => {
 export const Login: React.FC<LoginProps> = () => {
   return (
     <div className="login-page">
-      <div className="login-page__container wrapper p-grid p-align-start vertical-container p-justify-center">
-        <div className="login-page__hero p-col-12 p-lg-4 p-md-6">
+      <div className="login-page__container wrapper">
+        <div className="login-page__hero">
           <h1 className="login-page__hero-text">
             <span>Visualize Your</span>
             <span>Important Data</span>
@@ -20,25 +19,22 @@ export const Login: React.FC<LoginProps> = () => {
 
           <div className="login-page__hero-image"></div>
         </div>
-        <div className="login-page__oauth p-col-12 p-lg-4 p-md-6 p-d-flex p-flex-column">
-          <Button
+        <div className="login-page__oauth">
+          <button
             onClick={() => handleLogin(LoginMethod.GOOGLE)}
-            icon="pi pi-google"
-            className="p-shadow-4"
+            className=""
             id="btn-oauth-google"
-            label="Login with Google" />
-          <Button
+            >Login with Google</button>
+          <button
             onClick={() => handleLogin(LoginMethod.FACEBOOK)}
-            icon="pi pi-facebook"
-            className="p-shadow-4"
+            className=""
             id="btn-oauth-facebook"
-            label="Login with Facebook" />
-          <Button
+            >Login with Facebook</button>
+          <button
             onClick={() => handleLogin(LoginMethod.GITHUB)}
-            icon="pi pi-github"
-            className="p-shadow-4"
+            className=""
             id="btn-oauth-github"
-            label="Login with GitHub" />
+            >Login with Github</button>
         </div>
       </div>
     </div>

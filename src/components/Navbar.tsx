@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'primereact/button';
 import { Link } from 'react-router-dom';
 
 interface NavbarProps {
@@ -17,15 +16,15 @@ const handleLinkHome = (location: any) => {
 export const Navbar: React.FC<NavbarProps> = ({title="visualizer"}) => {
   return (
     <div className="navbar">
-      <div className="wrapper p-d-flex p-jc-between p-ai-center">
+      <div className="wrapper navbar-nav">
         <Link to={handleLinkHome}>
-          <div id="home-logo" className="navbar__start">
+          <div id="home-logo" className="navbar-nav__start">
           </div>
         </Link>
 
-        <ul className="navbar__end">
+        <ul className="navbar-nav__end">
           <a href="mailto:fikriansyah@mrizki.com">
-            <Button label="Contact" className="p-button-text" />
+            Contact
           </a>
         </ul>
       </div>

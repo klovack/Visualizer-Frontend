@@ -4,16 +4,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import './styles/reset.scss';
-import 'primereact/resources/themes/saga-blue/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
-import PrimeReact from 'primereact/utils';
-
 import './styles/styles.scss';
 
-
-PrimeReact.ripple = true;
 
 ReactDOM.render(
   <App />,
