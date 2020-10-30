@@ -3,16 +3,28 @@ export interface LatLng {
   lng: number,
 }
 
+export interface IJourney {
+  id: number,
+  vendor_id: number,
+  passengerCount: number,
+  distance?: number,
+  pickupLocation?: LatLng,
+  dropoffLocation?: LatLng,
+  pickupTime?: Date,
+  dropoffTime?: Date,
+  fare_amount?: number,
+}
+
 export class Journey {
   constructor(
-    private id: number,
-    private vendor_id: number,
-    private passengerCount: number,
-    private distance?: number,
-    private pickupLocation?: LatLng,
-    private dropoffLocation?: LatLng,
-    private pickupTime?: Date,
-    private dropoffTime?: Date,
-    private fare_amount?: number,
+    public id: number,
+    public vendor_id: number,
+    public passengerCount: number,
+    public distance?: number,
+    public pickupLocation?: LatLng,
+    public dropoffLocation?: LatLng,
+    public pickupTime?: Date,
+    public dropoffTime?: Date,
+    public fare_amount?: number,
   ){}
 }

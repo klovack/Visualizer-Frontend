@@ -1,6 +1,11 @@
 export class Vendor {
   constructor(
-    private id: number,
-    private name: string,
+    public id: number,
+    public name: string,
   ){}
+}
+
+export interface IVendor {
+  id: number,
+  name?: string,
 }
