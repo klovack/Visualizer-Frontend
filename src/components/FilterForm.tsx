@@ -37,7 +37,8 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
           limit: '',
           isUnlimited: false,
         }}
-        onSubmit={(_, { setErrors }) => {
+        onSubmit={(values, { setErrors }) => {
+          console.log(values);
         }}
       >
         {/* Start of the form, and pass an object if form needs it */}
@@ -47,15 +48,19 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
           values
         }) => (
             <Form className="filter-form__form">
-              <InputField label="Vendor" name="vendor" hideLabel>
+              <InputField className="p-input-icon-left" label="Vendor" name="vendor" hideLabel>
+                <i className="pi pi-user"></i>
                 <InputText
                   name="vendor"
                   placeholder="Vendor"
                 />
               </InputField>
 
-              <InputField label="Time Start" name="timeStart" hideLabel>
+              <InputField className="p-input-icon-left" label="Time Start" name="timeStart" hideLabel>
+              <i className="pi pi-calendar"></i>
                 <Calendar
+                  icon="pi pi-calendar-minus"
+                  showIcon
                   name="timeStart"
                   placeholder="2020-01-02 05:42"
                   showTime
@@ -65,6 +70,8 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
 
               <InputField label="Time Start" name="timeEnd" hideLabel>
                 <Calendar
+                  icon="pi pi-calendar-plus"
+                  showIcon
                   name="timeStart"
                   placeholder="2020-01-02 05:42"
                   showTime

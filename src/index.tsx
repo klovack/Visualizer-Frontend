@@ -16,9 +16,7 @@ import './styles/styles.scss';
 PrimeReact.ripple = true;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />,
   document.getElementById('root')
 );
 
