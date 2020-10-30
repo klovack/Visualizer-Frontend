@@ -1,14 +1,26 @@
+import { ColorModeProvider, CSSReset, DefaultTheme, theme, ThemeProvider } from '@chakra-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import './styles/reset.scss';
 import './styles/styles.scss';
 
+const visualizerTheme: DefaultTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+      
+  },
+}
 
 ReactDOM.render(
-  <App />,
+  <ThemeProvider theme={visualizerTheme}>
+    <CSSReset />
+    <ColorModeProvider>
+      <App />
+    </ColorModeProvider>
+  </ThemeProvider>,
   document.getElementById('root')
 );
 

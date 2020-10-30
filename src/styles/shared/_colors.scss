@@ -1,20 +1,9 @@
 $primary-blue: #7ab9ff;
 $darker-blue: #22539a;
 $darkest-blue: #0b2245;
+$white: #ffffff;
+
+$bg-light-blue: #d3e8ff;
 
 $accent-color: #EEFFBC;
 $dark-accent-color: #37421a;
-
-@mixin bg-gradient {
-  background: rgb(255,255,255);
-  background: -moz-linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(175,212,253,1) 100%);
-  background: -webkit-linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(175,212,253,1) 100%);
-  background: linear-gradient(225deg, rgba(255,255,255,1) 0%, rgba(175,212,253,1) 100%);
-  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#afd4fd",GradientType=1);
-}
-
-@mixin bg-gradient-login-img {
-  background: url('../../resources/bg_loginjpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}

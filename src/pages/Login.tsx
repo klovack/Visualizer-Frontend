@@ -1,5 +1,7 @@
+import { Button, Heading } from '@chakra-ui/core';
 import React from 'react'
 import { LoginMethod } from '../types';
+import { AiFillFacebook, AiFillGithub, AiFillGoogleSquare } from 'react-icons/ai';
 
 interface LoginProps { }
 
@@ -12,29 +14,32 @@ export const Login: React.FC<LoginProps> = () => {
     <div className="login-page">
       <div className="login-page__container wrapper">
         <div className="login-page__hero">
-          <h1 className="login-page__hero-text">
+          <Heading className="login-page__hero-text">
             <span>Visualize Your</span>
             <span>Important Data</span>
-          </h1>
+          </Heading>
 
           <div className="login-page__hero-image"></div>
         </div>
         <div className="login-page__oauth">
-          <button
+          <Button
+            leftIcon={AiFillGoogleSquare}
             onClick={() => handleLogin(LoginMethod.GOOGLE)}
-            className=""
+            height="48px"
             id="btn-oauth-google"
-            >Login with Google</button>
-          <button
+            >Login with Google</Button>
+          <Button
+            leftIcon={AiFillFacebook}
             onClick={() => handleLogin(LoginMethod.FACEBOOK)}
-            className=""
+            height="48px"
             id="btn-oauth-facebook"
-            >Login with Facebook</button>
-          <button
+            >Login with Facebook</Button>
+          <Button
+            leftIcon={AiFillGithub}
             onClick={() => handleLogin(LoginMethod.GITHUB)}
-            className=""
+            height="48px"
             id="btn-oauth-github"
-            >Login with Github</button>
+            >Login with Github</Button>
         </div>
       </div>
     </div>
