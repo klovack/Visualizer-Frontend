@@ -1,11 +1,17 @@
-import { Flex } from '@chakra-ui/core';
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { ChartCard } from '../components/ChartCard'
 import { FilterForm } from '../components/FilterForm'
+import { Filter } from '../models/filter';
+import { Journey } from '../models/journey';
 
 interface DashboardProps {}
 
 export const Dashboard: React.FC<DashboardProps> = () => {
+  const filter: Filter = useSelector(state => state['filter']);
+  const journeys: Journey[] = useSelector(state => state['journeys']);
+
+  
   return (
     <div>
       <div className="wrapper dashboard">
@@ -14,14 +20,20 @@ export const Dashboard: React.FC<DashboardProps> = () => {
           subtitle="Filter by vendors and time"
         />
 
-        <Flex justify="stretch">
+        <div className="dashboard__top-chart">
           <ChartCard
-            data={[]}
+            data={journeys}
+            keys={['distance']}
+            filter={filter}
+            title="Total distance covered"
           />
           <ChartCard
             data={[]}
+            keys={['fare_amount']}
+            filter={filter}
+            title="Total fares collected"
           />
-        </Flex>
+        </div>
 
       </div>
     </div>

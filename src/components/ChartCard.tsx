@@ -48,39 +48,47 @@ export const ChartCard: React.FC<ChartCardProps> = ({
           {title}
         </Heading>
 
-        <Flex justify="flex-end" align="center">
-          <FormLabel htmlFor="switchable-">Has Switch</FormLabel>
-          <Switch id="switchable-" onChange={() => setShowTotal(!showTotal)} value={showTotal}/>
-        </Flex>
+        {totalKey || totalText ? (
+          <Flex justify="flex-end" align="center">
+            <FormLabel htmlFor="switchable-">Has Switch</FormLabel>
+            <Switch id="switchable-" onChange={() => setShowTotal(!showTotal)} value={showTotal}/>
+          </Flex>
+        ) : ''}
       </Flex>
 
       <div className="chart-card__body">
-        <ResponsiveBar
-          data={data}
-          enableLabel={true}
-          keys={keys}
-          indexBy={indexBy}
-          layout={data && data.length <= 10 ? "horizontal" : "vertical"}
-          axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Distance',
-            legendOffset: 32,
-            legendPosition: 'middle',
-          }}
-          theme={visualizerLegends}
-          colors={{ scheme: 'nivo' }}
-          animate={true}
-          groupMode="stacked"
-          margin={{
-            top: 40,
-            left: 100,
-            right: 50,
-            bottom: 100
-          }}
-          innerPadding={2}
-        />
+        {!data || data.length === 0 ? (
+          <Heading className="chart-card__no-data" size="md">
+            No data available
+          </Heading>
+        ) : (
+          <ResponsiveBar
+            data={data}
+            enableLabel={true}
+            keys={keys}
+            indexBy={indexBy}
+            layout={data && data.length <= 10 ? "horizontal" : "vertical"}
+            axisBottom={{
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: 0,
+              legend: 'Distance',
+              legendOffset: 32,
+              legendPosition: 'middle',
+            }}
+            theme={visualizerLegends}
+            colors={{ scheme: 'nivo' }}
+            animate={true}
+            groupMode="stacked"
+            margin={{
+              top: 40,
+              left: 100,
+              right: 50,
+              bottom: 100
+            }}
+            innerPadding={2}
+          />
+        )}
       </div>
 
       <Flex align="center" justify="space-between" className="chart-card__footer">
@@ -88,15 +96,25 @@ export const ChartCard: React.FC<ChartCardProps> = ({
             <div className="chart-card__footer__filter">
               <List spacing={3}>
                 {Object.keys(filter).map((key) => {
+                  if (!filter[key]) {
+                    return '';
+                  }
                   let filterText = filter[key];
 
                   if (filter.timeStart === filter[key]) {
                     filterText = "from " + filterText;
                   } else if(filter.timeEnd === filter[key]) {
                     filterText = "to " + filterText;
+                  } else if (key === 'limit') {
+                    if (filter.isUnlimited) {
+                      return '';
+                    }
+
+                    filterText = "Limit to " + filter[key] + " data";
                   }
+
                   return (
-                    <ListItem>
+                    <ListItem key={key}>
                       <ListIcon icon="circle" />
                       {filterText}
                     </ListItem>
