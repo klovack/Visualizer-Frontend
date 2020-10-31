@@ -1,3 +1,4 @@
+import { Flex } from '@chakra-ui/core';
 import React from 'react'
 import { ChartCard } from '../components/ChartCard'
 import { FilterForm } from '../components/FilterForm'
@@ -13,7 +14,15 @@ export const Dashboard: React.FC<DashboardProps> = () => {
           subtitle="Filter by vendors and time"
         />
 
-        <ChartCard />
+        <Flex justify="stretch">
+          <ChartCard
+            data={[]}
+          />
+          <ChartCard
+            data={[]}
+          />
+        </Flex>
+
       </div>
     </div>
   );
