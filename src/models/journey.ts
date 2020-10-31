@@ -1,3 +1,5 @@
+import date from 'date-and-time';
+
 export interface LatLng {
   lat: number,
   lng: number,
@@ -41,6 +43,10 @@ export class Journey {
     public dropoffTime?: Date,
     public fare_amount?: number,
   ){}
+
+  get timeSpan(): string {
+    return date.format(this.pickupTime, 'hh:mm A') + ' - ' + date.format(this.dropoffTime, 'hh:mm A');
+  }
 
   static fromResponse(element: IResponseJourney) {
     return new Journey(

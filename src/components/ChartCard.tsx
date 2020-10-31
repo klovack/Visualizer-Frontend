@@ -33,10 +33,10 @@ export const ChartCard: React.FC<ChartCardProps> = ({
 
   const [showTotal, setShowTotal] = useState(false);
 
-  let total;
+  let total = 0;
   if (data && totalKey) {
-    total = data[totalKey];
     data.forEach((d) => {
+      console.log(d[totalKey]);
       total += d[totalKey];
     })
   }
@@ -48,9 +48,9 @@ export const ChartCard: React.FC<ChartCardProps> = ({
           {title}
         </Heading>
 
-        {totalKey || totalText ? (
+        {totalKey ? (
           <Flex justify="flex-end" align="center">
-            <FormLabel htmlFor="switchable-">Has Switch</FormLabel>
+            <FormLabel htmlFor="switchable-">Compare Total</FormLabel>
             <Switch id="switchable-" onChange={() => setShowTotal(!showTotal)} value={showTotal}/>
           </Flex>
         ) : ''}
@@ -64,8 +64,8 @@ export const ChartCard: React.FC<ChartCardProps> = ({
         ) : (
           <ResponsiveBar
             data={data}
-            enableLabel={true}
             keys={keys}
+            enableLabel={false}
             indexBy={indexBy}
             layout={data && data.length <= 10 ? "horizontal" : "vertical"}
             axisBottom={{
@@ -87,6 +87,21 @@ export const ChartCard: React.FC<ChartCardProps> = ({
               bottom: 100
             }}
             innerPadding={2}
+            legends={[
+              {
+                dataFrom: 'indexes',
+                anchor: 'top',
+                direction: 'row',
+                justify: false,
+                itemHeight: 100,
+                itemWidth: 20,
+                symbolSize: 20,
+                translateX: 0,
+                translateY: 0,
+                itemsSpacing: 100,
+                itemDirection: 'left-to-right',
+              }
+            ]}
           />
         )}
       </div>
@@ -126,7 +141,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
 
           {totalKey && totalKey.length > 0 && (
             <div className="chart-card__footer__total">
-              total <span>{totalText ? totalText : total + " " + totalUnit}</span>
+              total <span>{totalText ? totalText : total.toFixed(2) + " " + totalUnit}</span>
             </div>
           )}
       </Flex>

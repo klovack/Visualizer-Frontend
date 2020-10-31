@@ -32,10 +32,10 @@ export const vendorReducer = (state: Vendor[] = [], action: VendorAction) => {
 export const journeyReducer = (state: Journey[] = [], action: JourneyAction) => {
   switch (action.type) {
     case JourneyActionType.ADD_JOURNEY:
-      return {
+      return [
         ...state,
         ...action.journeys,    
-      };
+      ];
 
     case JourneyActionType.REMOVE_JOURNEY:
       if (action.toBeRemovedIds.length <= 0) {

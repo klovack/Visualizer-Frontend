@@ -10,7 +10,6 @@ interface DashboardProps {}
 export const Dashboard: React.FC<DashboardProps> = () => {
   const filter: Filter = useSelector(state => state['filter']);
   const journeys: Journey[] = useSelector(state => state['journeys']);
-
   
   return (
     <div>
@@ -26,12 +25,18 @@ export const Dashboard: React.FC<DashboardProps> = () => {
             keys={['distance']}
             filter={filter}
             title="Total distance covered"
+            totalKey="distance"
+            totalUnit="km"
+            indexBy="timeSpan"
           />
           <ChartCard
-            data={[]}
+            data={journeys}
             keys={['fare_amount']}
             filter={filter}
             title="Total fares collected"
+            totalKey="fare_amount"
+            totalUnit="€"
+            indexBy="timeSpan"
           />
         </div>
 
