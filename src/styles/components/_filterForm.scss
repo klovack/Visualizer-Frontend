@@ -3,6 +3,7 @@
   &__form {
     background: $accent-color;
     display: flex;
+    flex-wrap: wrap;
     justify-content: stretch;
     padding: 4px;
     margin-top: 24px;

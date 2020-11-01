@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Button } from '@chakra-ui/core';
+import { Alert, AlertIcon, Button, Heading } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
 
 import React, { useState } from 'react'
@@ -27,8 +27,12 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
       {shouldRenderTitle &&
         (
           <div className="filter-form__header">
-            {titleJSX}
-            {subtitleJSX}
+            <Heading size="lg">
+              {titleJSX}
+            </Heading>
+            <Heading fontWeight="normal" size="sm">
+              {subtitleJSX}
+            </Heading>
           </div>
         )
       }
