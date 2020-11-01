@@ -2,7 +2,7 @@ import { Box, Flex, FormLabel, Heading, List, ListIcon, ListItem, Switch } from 
 import { ResponsiveBarCanvas } from '@nivo/bar';
 import { getOrdinalColorScale } from '@nivo/colors';
 import { AxisProps } from '@nivo/axes';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Filter } from '../models/filter';
 import date from 'date-and-time';
 
@@ -85,17 +85,25 @@ export const ChartCard: React.FC<ChartCardProps> = ({
     actualData = data
   }
 
-  const hasManyData = actualData && actualData.length <= 10;
+  const hasSmallData = actualData && actualData.length <= 10;
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth);
+    });
+  });
+  const isScreenSmall = windowWidth <= 700 ? true : false;
 
   const leftAxis: AxisProps = {
     tickSize: 5,
     tickPadding: 30,
-    tickRotation: 0,
+    tickRotation: isScreenSmall ? -60 : 0,
     legend: indexByText ? indexByText : indexBy ,
     legendPosition: "middle",
     legendOffset: -20,
   };
-  leftAxis.legend = hasManyData ? leftAxis.legend : keysUnit;
+  leftAxis.legend = hasSmallData ? leftAxis.legend : keysUnit;
 
   const bottomAxis: AxisProps = {
     tickSize: 5,
@@ -105,12 +113,11 @@ export const ChartCard: React.FC<ChartCardProps> = ({
     legendPosition: "middle",
     legendOffset: 20,
   }
-  bottomAxis.legend = hasManyData ? keysUnit : bottomAxis.legend;
-
+  bottomAxis.legend = hasSmallData ? keysUnit : bottomAxis.legend;
 
   return (
     <Box className="chart-card"  >
-      <Flex justify="space-between" align="center" className="chart-card__heading">
+      <Flex justify="space-between" align="center" flexWrap="wrap" className="chart-card__heading">
         <Heading fontWeight="normal" size="md" >
           {title}
         </Heading>
@@ -134,22 +141,22 @@ export const ChartCard: React.FC<ChartCardProps> = ({
             keys={keys}
             enableLabel={false}
             indexBy={indexBy}
-            layout={hasManyData ? "horizontal" : "vertical"}
+            layout={hasSmallData ? "horizontal" : "vertical"}
             axisBottom={bottomAxis}
             axisLeft={leftAxis}
-            enableGridX={hasManyData ? true : false}
-            enableGridY={hasManyData ? false : true}
+            enableGridX={hasSmallData ? true : false}
+            enableGridY={hasSmallData ? false : true}
             theme={visualizerLegends}
             colors={getOrdinalColorScale(barColors, 'index')}
             groupMode="grouped"
             margin={{
               top: 40,
-              left: hasManyData ? 100 : 50,
-              right: 150,
+              left: isScreenSmall ? 30 : 50,
+              right: isScreenSmall ? 30 : 150,
               bottom: actualData[0][indexBy].toString().length  * 7.5,
             }}
             innerPadding={2}
-            legends={[
+            legends={isScreenSmall && !hasSmallData ? [] : [
               {
                 dataFrom: 'indexes',
                 anchor: 'top-right',
@@ -158,14 +165,13 @@ export const ChartCard: React.FC<ChartCardProps> = ({
                 itemHeight: 10,
                 itemWidth: 100,
                 symbolSize: 15,
-                translateX: 120,
-                translateY: 0,
+                translateX: isScreenSmall ? 0 : 120,
+                translateY: -20,
                 itemsSpacing: 10,
                 itemDirection: 'left-to-right',
               }
             ]}
             tooltip={(p) => {
-              console.log(p);
               return (
               <div style={{textTransform: 'capitalize'}}>
                 <p>
@@ -180,7 +186,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
         )}
       </div>
 
-      <Flex align="center" justify="space-between" className="chart-card__footer">
+      <Flex align="center" justify="space-between" alignItems="center" flexWrap="wrap" className="chart-card__footer">
           {filter && (
             <div className="chart-card__footer__filter">
               <List spacing={3}>

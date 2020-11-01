@@ -7,6 +7,7 @@
     justify-content: stretch;
     padding: 4px;
     margin-top: 24px;
+    @include elevate(2);
   
     > * {
       flex-grow: 1;

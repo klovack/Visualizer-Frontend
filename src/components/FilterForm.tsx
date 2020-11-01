@@ -14,8 +14,8 @@ interface FilterFormProps {
 }
 
 export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
-  const titleJSX = title ? <h3>{title}</h3> : null;
-  const subtitleJSX = subtitle ? <p>{subtitle}</p> : null;
+  const titleJSX = title ? title : null;
+  const subtitleJSX = subtitle ? subtitle : null;
   const shouldRenderTitle = title && subtitle;
 
   const [errors, setFunctionError] = useState([] as Error[]);
@@ -116,7 +116,7 @@ export const FilterForm: React.FC<FilterFormProps> = ({ title, subtitle }) => {
                 <Switch id="isUnlimited" name="isUnlimited" />
               </Flex> */}
 
-              <Button type="submit" isLoading={isSubmitting} loadingText="Filtering" >Refine</Button>
+              <Button type="submit" isLoading={isSubmitting} variant="solid" variantColor="blue" loadingText="Filtering" >Refine</Button>
             </Form>
 
           )}
