@@ -23,20 +23,28 @@ export const Dashboard: React.FC<DashboardProps> = () => {
           <ChartCard
             data={journeys}
             keys={['distance']}
+            keysUnit="Distance in km"
             filter={filter}
             title="Total distance covered"
             totalKey="distance"
             totalUnit="km"
-            indexBy="timeSpan"
+            indexBy="idTimespan"
+            indexByText="Vendor"
+            groupTotalBy="vendorId"
+            groupTotalByText="Vendor"
           />
           <ChartCard
             data={journeys}
             keys={['fare_amount']}
+            keysUnit="Fare in €"
             filter={filter}
             title="Total fares collected"
             totalKey="fare_amount"
             totalUnit="€"
-            indexBy="timeSpan"
+            indexBy="idTimespan"
+            indexByText="Vendor"
+            groupTotalBy="vendorId"
+            groupTotalByText="Vendor"
           />
         </div>
 

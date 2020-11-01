@@ -1,6 +1,8 @@
-export const visualizerLegends = {
+import {Theme} from '@nivo/core'
+
+export const visualizerLegends: Theme = {
     "background": "#ffffff",
-    "textColor": "#333333",
+    "textColor": "#bdbdbd",
     "fontSize": 14,
     "axis": {
         "domain": {
@@ -23,3 +25,16 @@ export const visualizerLegends = {
         }
     }
 }
+
+export const barColors = [
+    '#7851a8',
+    '#fff09c',
+    '#a37ac2',
+    '#ffb346',
+    '#b2e2f0',
+    '#ccf4fa',
+    '#859fb5',
+    '#ffe4b6',
+    '#ffccaa',
+    '#73a7b5'
+]

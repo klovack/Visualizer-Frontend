@@ -45,7 +45,11 @@ export class Journey {
   ){}
 
   get timeSpan(): string {
-    return date.format(this.pickupTime, 'hh:mm A') + ' - ' + date.format(this.dropoffTime, 'hh:mm A');
+    return date.format(this.pickupTime, 'hh:mm') + ' - ' + date.format(this.dropoffTime, 'hh:mm');
+  }
+
+  get idTimespan(): string {
+    return this.id.toString() + '. ' + this.timeSpan;
   }
 
   static fromResponse(element: IResponseJourney) {
